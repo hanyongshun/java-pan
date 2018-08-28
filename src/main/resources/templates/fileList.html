@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>虚拟目录</title>
@@ -14,11 +14,23 @@
     <![endif]-->
 </head>
 <body>
-<table>
-    <tr th:each="list : ${lists}">
-        <td><a th:href="${virtualFilePath} + '?lid=' + ${list.id} + '&path=' + ${list.virtualPath}" th:text="${list.name}"></a></td>
-    </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-hover">
+                <tr class="info">
+                    <th>标题</th>
+                    <th>操作</th>
+                </tr>
+                <tr th:each="list : ${lists}">
+                    <td class="col-md-10"><a th:href="${virtualFilePath} + '?online=true&lid=' + ${list.id} + '&path=' + ${list.virtualPath}" th:text="${list.name}">文件</a></td>
+                    <td class="col-md-2"><a th:if="${list.fileJudge}" class="btn btn-xs btn-success" th:href="${virtualFilePath} + '?online=false&lid=' + ${list.id} + '&path=' + ${list.virtualPath}" th:text="下载">下载</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script th:src="@{/jquery/jquery.min.js}" src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->

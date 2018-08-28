@@ -17,7 +17,7 @@ public class FileDownloadUtils {
         }
         BufferedInputStream br = new BufferedInputStream(new FileInputStream(f));
         byte[] buf = new byte[1024];
-        int len = 0;
+        int len;
 
         response.reset(); // 非常重要
         if (isOnLine) { // 在线打开方式
@@ -29,6 +29,7 @@ public class FileDownloadUtils {
             response.setContentType("application/x-msdownload");
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(f.getName(), "UTF-8"));
         }
+        response.setHeader("Content-Length", String.valueOf(f.length()));
         OutputStream out = response.getOutputStream();
         while ((len = br.read(buf)) > 0)
             out.write(buf, 0, len);

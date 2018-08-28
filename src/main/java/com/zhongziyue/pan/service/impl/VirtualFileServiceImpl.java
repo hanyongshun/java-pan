@@ -36,8 +36,8 @@ public class VirtualFileServiceImpl implements VirtualFileService {
     }
 
     @Override
-    public List<VirtualFileDto> findActualFilesByPath(Integer lid, String path, HttpServletResponse response) {
-        FileByPathLoader fileByPathLoader = new FileByPathLoader(lid, path, response);
+    public List<VirtualFileDto> findActualFilesByPath(Integer lid, String path, HttpServletResponse response, Boolean online) {
+        FileByPathLoader fileByPathLoader = new FileByPathLoader(lid, path, response, online);
         List<ActualFileDto> actualFileDtos = fileByPathLoader.load();
         return actualFileDtos.stream().map(VirtualFileDto::new).collect(Collectors.toList());
     }

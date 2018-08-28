@@ -1,14 +1,10 @@
 package com.zhongziyue.pan.service.dto;
 
-import com.zhongziyue.pan.domain.VirtualFile;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class ActualFileDto {
     private Integer lid;
     private String target;
     private String name;
+    private Boolean fileJudge;
 
     public ActualFileDto() {
     }
@@ -38,6 +34,14 @@ public class ActualFileDto {
     public ActualFileDto setName(String name) {
         this.name = name;
         return this;
+    }
+
+    public Boolean getFileJudge() {
+        return fileJudge;
+    }
+
+    public void setFileJudge(Boolean fileJudge) {
+        this.fileJudge = fileJudge;
     }
 
     @Override

@@ -18,11 +18,13 @@ public class FileByPathLoader {
     private Integer lid;
     private String path;
     private HttpServletResponse response;
+    private Boolean online;
 
-    public FileByPathLoader(int lid, String path, HttpServletResponse response) {
+    public FileByPathLoader(int lid, String path, HttpServletResponse response, Boolean online) {
         this.lid = lid;
         this.path = path;
         this.response = response;
+        this.online = online;
     }
 
     public List<ActualFileDto> load() {
@@ -31,7 +33,7 @@ public class FileByPathLoader {
         File file = new File(virtualFile.getRealPath(), path);
         if (file.isFile()) {
             try {
-                FileDownloadUtils.downLoad(file.getPath(), response, true);
+                FileDownloadUtils.downLoad(file.getPath(), response, online);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,11 +51,13 @@ public class FileByPathLoader {
                 actualFileDto.setTarget(UrlUtils.urlFormat(path + subFile.getName() + "/"));
                 actualFileDto.setName(subFile.getName());
                 actualFileDto.setLid(lid);
+                actualFileDto.setFileJudge(false);
             } else {
                 actualFileDto.setName(subFile.getName());
 //                actualFileDto.setTarget("#");
                 actualFileDto.setTarget(UrlUtils.urlFormat(path + subFile.getName()));
                 actualFileDto.setLid(lid);
+                actualFileDto.setFileJudge(true);
             }
             actualFileDtos.add(actualFileDto);
         }

@@ -9,6 +9,7 @@ public class VirtualFileDto {
     private int id;
     private String name;
     private String virtualPath;
+    private boolean fileJudge;
 
     public VirtualFileDto() {
     }
@@ -26,6 +27,7 @@ public class VirtualFileDto {
             this.id = actualFileDto.getLid();
             this.name = actualFileDto.getName();
             this.virtualPath = actualFileDto.getTarget();
+            this.fileJudge = actualFileDto.getFileJudge();
         }
     }
 
@@ -58,6 +60,14 @@ public class VirtualFileDto {
     public VirtualFileDto setVirtualPath(String virtualPath) {
         this.virtualPath = virtualPath;
         return this;
+    }
+
+    public boolean isFileJudge() {
+        return fileJudge;
+    }
+
+    public void setFileJudge(boolean fileJudge) {
+        this.fileJudge = fileJudge;
     }
 
     public String toString() {
