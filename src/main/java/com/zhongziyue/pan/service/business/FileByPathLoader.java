@@ -2,14 +2,12 @@ package com.zhongziyue.pan.service.business;
 
 
 import com.zhongziyue.pan.domain.VirtualFile;
-import com.zhongziyue.pan.infrastruction.utils.FileDownloadUtils;
+import com.zhongziyue.pan.infrastruction.utils.SpringContextUtils;
 import com.zhongziyue.pan.infrastruction.utils.UrlUtils;
 import com.zhongziyue.pan.repository.mapper.VirtualFileMapper;
 import com.zhongziyue.pan.service.dto.ActualFileDto;
-import com.zhongziyue.pan.infrastruction.utils.SpringContextUtils;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,27 +15,16 @@ public class FileByPathLoader {
     private transient VirtualFileMapper virtualFileMapper = SpringContextUtils.getBean(VirtualFileMapper.class);
     private Integer lid;
     private String path;
-    private HttpServletResponse response;
-    private Boolean online;
 
-    public FileByPathLoader(int lid, String path, HttpServletResponse response, Boolean online) {
+    public FileByPathLoader(int lid, String path) {
         this.lid = lid;
         this.path = path;
-        this.response = response;
-        this.online = online;
     }
 
     public List<ActualFileDto> load() {
         List<ActualFileDto> actualFileDtos = new ArrayList<>();
         VirtualFile virtualFile = virtualFileMapper.selectById(lid);
         File file = new File(virtualFile.getRealPath(), path);
-        if (file.isFile()) {
-            try {
-                FileDownloadUtils.downLoad(file.getPath(), response, online);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         File[] subFiles = file.listFiles();
         if (subFiles == null) {
             return new ArrayList<>();

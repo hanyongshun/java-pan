@@ -11,5 +11,7 @@ public interface VirtualFileService {
 
     List<VirtualFileDto> findAllFilesByPath(String path);
 
-    List<VirtualFileDto> findActualFilesByPath(Integer lid, String path, HttpServletResponse response, Boolean online);
+    List<VirtualFileDto> findActualFilesByPath(Integer lid, String path);
+
+    void downloadActualFileByPath(Integer lid, String path, HttpServletResponse response, Boolean online);
 }

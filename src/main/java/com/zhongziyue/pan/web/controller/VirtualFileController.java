@@ -24,19 +24,28 @@ public class VirtualFileController {
     @RequestMapping(value = {"/virtual", "/"})
     public String fileListIndex(Model model) {
         List<VirtualFileDto> virtualFileDtos = virtualFileService.findAllFilesByPath("/");
-        model.addAttribute("virtualFilePath", "/virtual");
+        model.addAttribute("virtualFileUrl", "/virtual");
         model.addAttribute("lists", virtualFileDtos);
         return "fileList";
     }
 
     @RequestMapping(value = "/virtual", params = {"lid", "path"})
-    public String fileList(@RequestParam("lid") Integer lid, @RequestParam("path") String path, Boolean online, Model model, HttpServletResponse response) {
+    public String fileList(@RequestParam("lid") Integer lid, @RequestParam("path") String path, Model model) {
         if (StringUtils.isEmpty(path)) {
             path = "/";
         }
-        List<VirtualFileDto> virtualFileDtos = virtualFileService.findActualFilesByPath(lid, path, response, online);
-        model.addAttribute("virtualFilePath", "/virtual");
+        List<VirtualFileDto> virtualFileDtos = virtualFileService.findActualFilesByPath(lid, path);
+        model.addAttribute("virtualFileUrl", "/virtual");
+        model.addAttribute("fileDownloadUrl", "/virtual/download");
         model.addAttribute("lists", virtualFileDtos);
         return "fileList";
+    }
+
+    @RequestMapping(value = "/virtual/download", params = {"lid", "path"})
+    public void fileDownload(@RequestParam("lid") Integer lid, @RequestParam("path") String path, Boolean online, HttpServletResponse response) {
+        if (StringUtils.isEmpty(path)) {
+            path = "/";
+        }
+        virtualFileService.downloadActualFileByPath(lid, path, response, online);
     }
 }
