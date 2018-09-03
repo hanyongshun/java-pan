@@ -24,10 +24,10 @@
                 </tr>
                 <tr th:each="list : ${lists}">
                     <td class="col-md-10">
-                        <a th:if="not ${list.fileJudge}" th:href="${virtualFileUrl} + '?lid=' + ${list.id} + '&path=' + ${list.virtualPath}" th:text="${list.name}">目录</a>
-                        <a th:if="${list.fileJudge}" th:href="${fileDownloadUrl} + '?online=true&lid=' + ${list.id} + '&path=' + ${list.virtualPath}" th:text="${list.name}">文件</a>
+                        <a th:if="not ${list.fileJudge}" th:href="@{${virtualFileUrl} + '?lid=' + ${list.id} + '&path=' + ${list.virtualPath}}" th:text="${list.name}">目录</a>
+                        <a th:if="${list.fileJudge}" th:href="@{${fileDownloadUrl} + '?online=true&lid=' + ${list.id} + '&path=' + ${list.virtualPath}}" th:text="${list.name}">文件</a>
                     </td>
-                    <td class="col-md-2"><a th:if="${list.fileJudge}" class="btn btn-xs btn-success" th:href="${fileDownloadUrl} + '?online=false&lid=' + ${list.id} + '&path=' + ${list.virtualPath}" th:text="下载">下载</a></td>
+                    <td class="col-md-2"><a th:if="${list.fileJudge}" class="btn btn-xs btn-success" th:href="@{${fileDownloadUrl} + '?online=false&lid=' + ${list.id} + '&path=' + ${list.virtualPath}}" th:text="下载">下载</a></td>
                 </tr>
             </table>
         </div>
